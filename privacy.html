@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>プライバシーポリシー | MeeCal（ミーカル）</title>
+<!-- 生成元: docs/store/privacy-policy.md。修正は md 側を直してから反映すること -->
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, "Hiragino Sans", "Noto Sans JP", sans-serif; line-height: 1.8; max-width: 720px; margin: 0 auto; padding: 24px 20px 64px; color: #333; background: #fff; }
+  @media (prefers-color-scheme: dark) { body { color: #ddd; background: #191919; } a { color: #8ab4f8; } }
+  h1 { font-size: 1.5rem; border-bottom: 2px solid #f2735c; padding-bottom: 8px; }
+  h2 { font-size: 1.15rem; margin-top: 2em; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
+  th, td { border: 1px solid #999; padding: 8px; text-align: left; vertical-align: top; }
+  .updated { color: #888; font-size: 0.85rem; }
+  footer { margin-top: 48px; font-size: 0.85rem; color: #888; }
+</style>
+</head>
+<body>
+<h1>MeeCal プライバシーポリシー</h1>
+<p class="updated">最終更新日: 2026-10-30</p>
+
+<p>本プライバシーポリシーは、MeeCal 運営事務局（以下「運営者」）が提供するiOSアプリ「MeeCal（ミーカル）」（以下「本アプリ」）における利用者情報の取り扱いを定めるものです。</p>
+
+<h2>1. 収集する情報</h2>
+<p>本アプリは、サービスの提供に必要な範囲で以下の情報を収集します。</p>
+<p><strong>(1) アカウント情報</strong><br>
+Sign in with Apple または Google でのサインインにより取得するユーザー識別子・メールアドレス（Appleの「メールを非公開」を選択した場合は転送用アドレス）</p>
+<p><strong>(2) プロフィール情報</strong><br>
+身長・体重・年齢・性別・活動量・目標（なりたい自分・目標体重・目標カロリー等）・アプリ設定（テーマ・通知時刻・AIの呼称等）</p>
+<p><strong>(3) 健康・食事に関する記録</strong><br>
+食事記録（品目・カロリー・栄養素・食事の時間帯）、体組成記録（体重・体脂肪率・BMI等）、食品の換算ルールなど会話から保存されたユーザー固有の記録</p>
+<p><strong>(4) Apple ヘルスケア（HealthKit）データ</strong>（連携を有効にした場合のみ）<br>
+読み取り: 体重・体脂肪率・身長・歩数・ワークアウト・性別・生年月日 ／ 書き出し: 本アプリで記録した体重・体脂肪率</p>
+<p><strong>(5) 会話データ</strong><br>
+本アプリのチャットに入力したテキスト、および音声入力時の音声・その書き起こしテキスト</p>
+<p><strong>(6) 利用状況</strong><br>
+AI機能の利用回数（サービスの安定運用・利用量管理のため）</p>
+<p>本アプリは、広告識別子（IDFA）の取得、および広告・行動トラッキング目的の情報収集を一切行いません。</p>
+
+<h2>2. 利用目的</h2>
+<ol>
+<li>食事・体組成の記録、カロリー・栄養素の計算、目標の算出・管理などサービス機能の提供</li>
+<li>AI（人工知能）による応答・提案・記録内容の構造化</li>
+<li>リマインド通知の配信（利用者が設定した場合）</li>
+<li>サービスの品質改善・不具合対応</li>
+<li>利用量の管理・不正利用の防止</li>
+<li>お問い合わせへの対応</li>
+</ol>
+
+<h2>3. 外部サービスへの送信・第三者提供</h2>
+<p>サービス提供のため、以下の外部サービスに情報を送信します。いずれも上記利用目的の範囲内であり、<strong>広告目的での第三者提供は行いません</strong>。</p>
+<table>
+<tr><th>送信先</th><th>送信する情報</th><th>目的</th></tr>
+<tr><td>Supabase（データベース／認証基盤）</td><td>第1項の各情報</td><td>データの保存・認証。通信は暗号化され、データは利用者本人のみがアクセスできるよう制御（Row Level Security）しています</td></tr>
+<tr><td>Google Gemini API（AI処理）</td><td>会話テキスト・音声、および応答生成に必要な記録の一部（食事記録・体組成・目標・消費カロリーの推定値等）</td><td>記録の構造化（食事・体組成・修正）、音声の書き起こし、商品の公式栄養成分の検索、AIによる応答・提案の一部。API経由で送信されたデータがAIモデルの学習に使用されない設定で利用しています</td></tr>
+<tr><td>Anthropic Claude API（AI処理）</td><td>会話テキスト（音声入力は書き起こした文字）、および応答生成に必要な記録の一部（食事記録・体組成・目標・消費カロリーの推定値・わたしのルール等）</td><td>AIによる会話の応答・提案の生成。Anthropic の商用利用規約により、API経由で送信されたデータはAIモデルの学習に使用されません。送信データは Anthropic のシステムで原則30日以内に削除されます（利用ポリシー違反の調査や法令対応のために保持される場合を除く）</td></tr>
+</table>
+<p>上記のほか、法令に基づく場合を除き、利用者の同意なく第三者に個人情報を提供することはありません。</p>
+
+<h2>4. Apple ヘルスケア（HealthKit）データの取り扱い</h2>
+<ul>
+<li>HealthKit データは、体組成の記録・基礎代謝や消費カロリーの計算などサービス機能の提供にのみ使用します。歩数・ワークアウトなどの活動データは端末内で消費カロリーの推定値に集計し、その推定値と体組成は、利用者の質問への応答を生成するために上記の AI 処理の送信先（Google Gemini API・Anthropic Claude API）へ送信することがあります</li>
+<li><strong>HealthKit から取得した情報を、広告・マーケティング目的で使用したり、データブローカー等の第三者へ提供したりすることは一切ありません</strong></li>
+<li>連携は任意（オプトイン）であり、iOSの設定からいつでも許可を変更できます</li>
+</ul>
+
+<h2>5. 安全管理</h2>
+<ul>
+<li>通信はすべて TLS により暗号化されます</li>
+<li>データベースはユーザーごとのアクセス制御（Row Level Security）により、本人以外がデータへアクセスできない構成としています</li>
+<li>ログイン情報（セッション）は端末のキーチェーンに安全に保管されます</li>
+</ul>
+
+<h2>6. データの保存期間と削除</h2>
+<ul>
+<li>収集した情報は、アカウントが存続する期間保存されます</li>
+<li>アプリ内の「アカウントを削除」から、アカウントおよびサーバー上のすべての記録を削除できます（削除は取り消せません）</li>
+<li>Apple ヘルスケアへ書き出し済みのデータは利用者のヘルスケアApp内に残ります。削除する場合はヘルスケアAppから行ってください</li>
+</ul>
+
+<h2>7. 利用者の権利</h2>
+<p>利用者は、自己の個人情報について、開示・訂正・利用停止・削除を求めることができます。下記のお問い合わせ窓口までご連絡ください。</p>
+
+<h2>8. 未成年の利用</h2>
+<p>本アプリは医療・診断サービスではなく、一般的な健康管理を目的としています。未成年の方は保護者の同意のもとでご利用ください。</p>
+
+<h2>9. ポリシーの改定</h2>
+<p>本ポリシーの内容は、法令の変更やサービス内容の変更に応じて改定されることがあります。重要な変更がある場合は、アプリ内でお知らせします。</p>
+
+<h2>10. お問い合わせ窓口</h2>
+<p>運営者: MeeCal 運営事務局<br>
+連絡先: support@meecal.app</p>
+
+<footer>
+<a href="./index.html">MeeCal</a> ｜ <a href="./terms.html">利用規約</a> ｜ <a href="./support.html">サポート</a>
+</footer>
+</body>
+</html>

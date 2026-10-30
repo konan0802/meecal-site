@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>MeeCal（ミーカル）| 会話で終わるAI食事記録</title>
+<meta name="description" content="MeeCalは、AIとの会話だけで食事と体重を記録できるウェルネスアプリ。声で話しかければ記録が終わり、そのまま相談もできる。カロリー・PFC計算から目標管理までAIが伴走します。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  /* Design tokens: docs/design/screen-spec.md（コーラル既定テーマ）準拠 */
+  :root {
+    color-scheme: light dark;
+    --accent: #F76C4D; --accent-deep: #E2553A; --accent-soft: #FFE2D7;
+    --accent2: #2FA89A; --accent2-soft: #D8EFEB;
+    --pop: #FF3D71;
+    --bg: #FFF7F2; --surface: #FFF; --surface2: #FFF1EA;
+    --text: #2E2622; --muted: #8A7C74; --line: #F0E4DC;
+    --ai1: #FF9B6B; --ai2: #FFC15E; --ai3: #FF8FA3;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1B1714; --surface: #251F1B; --surface2: #2E2722;
+      --text: #F4ECE6; --muted: #A99A90; --line: #38302A;
+      --accent-soft: #3E2A22; --accent2-soft: #22332F;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Zen Kaku Gothic New", -apple-system, "Hiragino Sans", sans-serif;
+    line-height: 1.9; margin: 0; color: var(--text); background: var(--bg);
+  }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 40px 20px 64px; }
+  h1, h2, .num { font-family: "Zen Maru Gothic", "Zen Kaku Gothic New", sans-serif; }
+
+  /* hero */
+  .hero { text-align: center; padding-top: 16px; }
+  .orb {
+    width: 88px; height: 88px; margin: 0 auto 20px; border-radius: 50%;
+    background: radial-gradient(circle at 32% 28%, var(--ai2), var(--ai1) 55%, var(--ai3));
+    box-shadow: 0 10px 30px color-mix(in srgb, var(--ai1) 45%, transparent);
+  }
+  h1 { font-size: 2.6rem; letter-spacing: 0.02em; margin: 0; }
+  .yomi { color: var(--muted); font-size: 0.95rem; margin: 4px 0 0; }
+  .tagline { font-size: 1.35rem; font-weight: 700; margin: 28px 0 8px;
+    font-family: "Zen Maru Gothic", sans-serif; }
+  .lead { color: var(--muted); margin: 0 auto; max-width: 34em; }
+
+  /* chat demo */
+  .chat { margin: 40px 0; display: flex; flex-direction: column; gap: 14px; }
+  .row { display: flex; gap: 10px; align-items: flex-end; }
+  .row.user { justify-content: flex-end; }
+  .avatar { width: 34px; height: 34px; border-radius: 50%; flex: none;
+    background: radial-gradient(circle at 32% 28%, var(--ai2), var(--ai1) 55%, var(--ai3)); }
+  .bubble { max-width: min(78%, 350px); padding: 12px 16px; border-radius: 20px; font-size: 0.92rem; }
+  .ai .bubble { background: var(--surface); border: 1px solid var(--line); border-bottom-left-radius: 6px; }
+  .user .bubble { background: var(--accent); color: #fff; border-bottom-right-radius: 6px; }
+  .pill { display: inline-block; background: var(--accent2-soft); color: var(--accent2);
+    border-radius: 999px; padding: 1px 10px; font-size: 0.8rem; font-weight: 700; margin-right: 4px; }
+
+  /* voice waveform（音声入力の可視化） */
+  .mic { display: inline-flex; align-items: center; gap: 2px; margin-right: 10px; vertical-align: middle; }
+  .mic svg { width: 15px; height: 15px; margin-right: 5px; }
+  .bar { width: 3px; border-radius: 2px; background: rgba(255,255,255,0.9); height: 6px;
+    animation: wave 1.1s ease-in-out infinite; }
+  .bar:nth-child(2) { animation-delay: 0.15s; } .bar:nth-child(3) { animation-delay: 0.3s; }
+  .bar:nth-child(4) { animation-delay: 0.45s; } .bar:nth-child(5) { animation-delay: 0.6s; }
+  @keyframes wave { 0%,100% { height: 5px; } 50% { height: 14px; } }
+  @media (prefers-reduced-motion: reduce) { .bar { animation: none; height: 9px; } }
+
+  /* features */
+  h2 { font-size: 1.3rem; margin: 48px 0 16px; }
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 18px 18px 14px; }
+  .card .icon { font-size: 1.4rem; }
+  .card h3 { font-size: 1rem; margin: 6px 0 4px; font-family: "Zen Maru Gothic", sans-serif; }
+  .card p { font-size: 0.88rem; color: var(--muted); margin: 0; line-height: 1.7; }
+
+  /* mobile tuning */
+  @media (max-width: 540px) {
+    html { font-size: 15px; }
+    .wrap { padding: 28px 16px 56px; }
+    .hero { padding-top: 8px; }
+    .orb { width: 72px; height: 72px; margin-bottom: 16px; }
+    h1 { font-size: 2.1rem; }
+    .tagline { font-size: 1.15rem; margin-top: 22px; }
+    .lead { font-size: 0.93rem; line-height: 1.8; text-align: left; }
+    .chat { margin: 30px 0; gap: 10px; }
+    .avatar { width: 28px; height: 28px; }
+    .bubble { max-width: 78%; font-size: 0.84rem; line-height: 1.7; padding: 10px 13px; border-radius: 17px; }
+    .mic svg { width: 13px; height: 13px; }
+    .pill { font-size: 0.75rem; }
+    h2 { font-size: 1.15rem; margin-top: 38px; }
+    .cards { grid-template-columns: 1fr; }
+    .card p { font-size: 0.85rem; }
+  }
+
+  /* note & footer */
+  .note { margin-top: 40px; text-align: center; }
+  .badge { display: inline-block; background: var(--accent-soft); color: var(--accent-deep);
+    border-radius: 999px; padding: 6px 18px; font-weight: 700; font-size: 0.9rem;
+    font-family: "Zen Maru Gothic", sans-serif; }
+  .env { color: var(--muted); font-size: 0.85rem; margin-top: 10px; }
+  footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
+    font-size: 0.85rem; color: var(--muted); text-align: center; }
+  footer a { color: var(--muted); text-decoration: none; margin: 0 10px; }
+  footer a:hover { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="orb" role="img" aria-label="MeeCalのAIオーブ"></div>
+  <h1>MeeCal</h1>
+  <p class="yomi">ミーカル ＝ Me（わたしの）× kcal</p>
+  <p class="tagline">記録も、相談も、ぜんぶ会話で。</p>
+  <p class="lead">MeeCalは、AIパートナーと話しているだけで、毎日の健康管理が進んでいくアプリ。「今朝はプロテインとバナナ」——声でもテキストでも、それだけで記録が終わります。食べすぎた日も、目標に迷った日も、続きはそのまま会話で。</p>
+</header>
+
+<div class="chat" aria-label="MeeCalとの会話の例">
+  <div class="row user"><div class="bubble"><span class="mic" aria-label="音声入力"><svg viewBox="0 0 24 24" fill="rgba(255,255,255,0.9)"><path d="M12 14a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v5a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2z"/></svg><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span></span>今朝はプロテインとバナナ！</div></div>
+  <div class="row ai"><div class="avatar" aria-hidden="true"></div>
+    <div class="bubble">記録したよ。<span class="pill">210kcal</span><span class="pill">P26g</span><br>バナナは1本だった？いつもの30gスクープで計算してるよ。</div></div>
+  <div class="row user"><div class="bubble"><span class="mic" aria-label="音声入力"><svg viewBox="0 0 24 24" fill="rgba(255,255,255,0.9)"><path d="M12 14a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v5a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2z"/></svg><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span></span>1本！それとさ、昨日ちょっと食べすぎたかも…</div></div>
+  <div class="row ai"><div class="avatar" aria-hidden="true"></div>
+    <div class="bubble">大丈夫、数日ならして見れば想定の範囲だよ。夕食を軽めにするなら、いつもの鶏むね＋スープはどう？</div></div>
+</div>
+
+<h2>MeeCalにできること</h2>
+<div class="cards">
+  <div class="card"><span class="icon">🎙️</span><h3>会話だけで記録が終わる</h3>
+    <p>声でもテキストでも、話しかけるだけ。AIが品目・カロリー・PFCを読み取り、あいまいなところは会話で聞き返します。</p></div>
+  <div class="card"><span class="icon">🏷️</span><h3>正確なカロリー計算</h3>
+    <p>商品がわかる食品はメーカー公式の栄養成分を優先。「これ覚えておいて」の一言で、あなた専用の換算ルールになります。</p></div>
+  <div class="card"><span class="icon">🎯</span><h3>目標の相談もそのまま</h3>
+    <p>体組成にもとづく目標カロリー・PFCの提案と見直し。押しつけずに、あなたの希望を会話で聞きながら逆算します。</p></div>
+  <div class="card"><span class="icon">❤️</span><h3>ヘルスケア連携</h3>
+    <p>スマート体重計の体重・体脂肪率を自動で取り込み。記録した値はAppleヘルスケアにも書き出せます。</p></div>
+</div>
+
+<div class="note">
+  <span class="badge">App Store にて近日公開</span>
+  <p class="env">対応環境: iPhone（iOS 26.5以降）</p>
+</div>
+
+<footer>
+  <a href="./privacy.html">プライバシーポリシー</a> ｜ <a href="./terms.html">利用規約</a> ｜ <a href="./support.html">サポート</a>
+</footer>
+
+</div>
+</body>
+</html>
