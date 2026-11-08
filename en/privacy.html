@@ -64,7 +64,11 @@
 <ul>
 <li>When you agreed to or withdrew consent, the document version you agreed to, and the region the App used to show the consent screen</li>
 </ul>
-<p>We do not collect the advertising identifier (IDFA), and we do not track you for advertising.</p>
+<p><strong>(8) Purchase information</strong></p>
+<ul>
+<li>Your subscription purchase history (product, purchase and renewal dates, whether you used a trial, expiry date, whether it was refunded) and the user identifier tied to it. We use it to confirm your subscription and to understand how our ads perform (which ad led to a trial or purchase). We never see your card details; Apple handles payment</li>
+</ul>
+<p>We do not collect the advertising identifier (IDFA), and we do not track you for advertising. (RevenueCat's SDK does send the vendor identifier, IDFV, which is not the advertising identifier; see Section 5.)</p>
 <h2>3. How and why we use your information</h2>
 <table>
 <tr><th>Purpose</th><th>Information</th><th>Legal basis (EU / UK GDPR)</th></tr>
@@ -74,6 +78,7 @@
 <tr><td>Fix bugs and keep the service stable, manage usage, prevent abuse</td><td>2(1), (6)</td><td>Legitimate interests (Art. 6(1)(f))</td></tr>
 <tr><td>Answer your questions</td><td>2(1) and what you send us</td><td>Contract / legitimate interests</td></tr>
 <tr><td>Keep proof of your consent</td><td>2(7)</td><td>Legal obligation (Art. 6(1)(c)) and legitimate interests</td></tr>
+<tr><td>Confirm your subscription status; understand how our ads perform</td><td>2(1), (8)</td><td>Contract (subscription status); legitimate interests (ad performance)</td></tr>
 </table>
 <p>Where we rely on legitimate interests, you can object to that processing by contacting us (Section 8).</p>
 <p>We do not use your health data for advertising or marketing, and we do not sell it.</p>
@@ -84,24 +89,25 @@
 <li>Your records stay on our servers after you withdraw so that you can come back. To erase them, delete your account (Section 7). We do not delete them automatically, and we do not use them for anything else while your consent is withdrawn.</li>
 </ul>
 <h2>5. Service providers and sharing</h2>
-<p>We use the following service providers (processors) to run the App. We share only what each needs, only for the purposes in Section 3, and <strong>never for advertising</strong>.</p>
+<p>We use the following service providers (processors) to run the App. We share only what each needs and only for the purposes in Section 3. <strong>We never share your information with other companies for their advertising, or with data brokers.</strong> We do use RevenueCat to measure how our own Apple Ads campaigns perform (see the table).</p>
 <table>
 <tr><th>Provider</th><th>Information</th><th>Purpose</th><th>Location</th></tr>
 <tr><td>Supabase, Inc. (database and sign-in)</td><td>Everything in Section 2</td><td>Store your data and sign you in. Data is encrypted in transit, and access is limited to you by row-level security</td><td>Tokyo, Japan (AWS ap-northeast-1)</td></tr>
-<tr><td>Google LLC — Gemini API (AI processing)</td><td>Your messages and voice, and the records needed to answer (meals, body composition, goals, estimated calories burned, etc.)</td><td>Structuring your records (meals, body composition, edits), transcribing voice, looking up official nutrition facts for packaged foods, and part of the AI responses. We use the API under terms where Google does not use your data to train its models</td><td>United States and other countries where Google operates</td></tr>
-<tr><td>OpenAI, L.L.C. — API (AI processing)</td><td>Your voice, when you use voice input</td><td>Transcribing voice. Under OpenAI's terms, data sent through the API is not used to train its models</td><td>United States</td></tr>
+<tr><td>Google LLC — Gemini API (AI processing)</td><td>Your messages (and, in older versions of the App only, voice), and the records needed to answer (meals, body composition, goals, estimated calories burned, etc.)</td><td>Structuring your records (meals, body composition, edits), transcribing voice (older versions of the App only), looking up official nutrition facts for packaged foods, and part of the AI responses. We use the API under terms where Google does not use your data to train its models</td><td>United States and other countries where Google operates</td></tr>
+<tr><td>OpenAI — transcription API (AI processing)</td><td>Your voice recording when you use voice input</td><td>Transcribing speech into text. Under OpenAI's API terms, data sent through the API is not used to train its models</td><td>United States</td></tr>
 <tr><td>Anthropic PBC — Claude API (AI processing)</td><td>Your messages (voice input is sent as transcribed text), and the records needed to answer (meals, body composition, goals, estimated calories burned, your rules, etc.)</td><td>Conversation replies and suggestions. Under Anthropic's Commercial Terms, data sent through the API is not used to train its models, and Anthropic deletes it within 30 days, except when kept to investigate usage-policy violations or as required by law</td><td>United States</td></tr>
+<tr><td>RevenueCat, Inc. — subscription management and analytics</td><td>Purchase history (product, purchase and renewal dates, expiry, refunds); the App's user identifier; the attribution token that Apple issues on the device to show which ad led to the install, and the attribution result obtained with it (ad campaign, ad group, keyword, etc.); and device information that RevenueCat's SDK sends automatically (device model, OS, language, store country, app version, and the identifier for vendors, IDFV). We do not send the advertising identifier (IDFA). The IDFV is not used to track you for advertising; RevenueCat uses it to identify subscribers. The App does not ask for tracking permission (ATT), but the SDK may send the permission status value</td><td>Handle subscription purchases, restoring and status in the App, and measure and analyze how our own Apple Ads perform (which ad or keyword led to a trial or purchase). RevenueCat acts on our behalf. Your meals, health data and conversations are not sent</td><td>United States. RevenueCat uses sub-processors such as AWS (listed in its data processing agreement)</td></tr>
 <tr><td>Apple Inc. — Sign in with Apple, App Store</td><td>Sign-in and subscription information</td><td>Sign-in and payments (Apple's own privacy policy applies)</td><td>—</td></tr>
 <tr><td>Google LLC — Google Sign-In</td><td>Sign-in information</td><td>Sign-in (Google's own privacy policy applies)</td><td>—</td></tr>
 </table>
 <p>We do not sell, rent or share your personal information with data brokers or for cross-context behavioral advertising. We may disclose information if required by law.</p>
 <h2>6. International transfers</h2>
-<p>We are based in Japan and store your data in Japan. The European Commission and the UK have recognized Japan as providing an adequate level of protection, so transfers from the EU or UK to Japan rely on those adequacy decisions. When the AI providers process data in the United States, the transfer relies on the providers' data processing terms, which include standard contractual clauses (and the UK International Data Transfer Addendum for UK data) or, where the provider is certified, the EU-U.S. Data Privacy Framework and its UK Extension.</p>
+<p>We are based in Japan and store your data in Japan. The European Commission and the UK have recognized Japan as providing an adequate level of protection, so transfers from the EU or UK to Japan rely on those adequacy decisions. When the AI providers and RevenueCat process data in the United States (RevenueCat also uses United States sub-processors listed in its data processing agreement), the transfer relies on the providers' data processing terms, which include standard contractual clauses (and the UK International Data Transfer Addendum for UK data) or, where the provider is certified, the EU-U.S. Data Privacy Framework and its UK Extension.</p>
 <p>If you are in Canada or Australia, your information will be processed in Japan and the United States, whose laws may differ from yours. We remain responsible for your information and take reasonable steps to make sure our service providers protect it. Contact us if you would like more information about these transfers.</p>
 <h2>7. How long we keep your information, and deletion</h2>
 <ul>
 <li>We keep your information while your account exists.</li>
-<li>You can delete your account and all records on our servers in the App: My Page → "Delete account". This cannot be undone. Deleted data may remain in encrypted backups for up to 30 days and is then overwritten.</li>
+<li>You can delete your account and all records on our servers in the App: My Page → "Delete account". This cannot be undone. Deleted data may remain in encrypted backups of our database for up to 30 days and is then overwritten. When you delete your account, we also ask RevenueCat to delete the purchase and attribution information it holds about you; how long RevenueCat takes to remove it from its own systems and backups is set by RevenueCat's terms.</li>
 <li>Data the App wrote to Apple Health stays in your Health app. Delete it there if you wish.</li>
 <li>Consent records are deleted together with your account.</li>
 </ul>
